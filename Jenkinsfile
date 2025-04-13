@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git'
+                // Cloning from the main branch
+                git branch: 'main', url: 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git'
             }
         }
 
