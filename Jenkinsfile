@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/YourUsername/YourRepoName.git' // Update with your GitHub repo URL
+                git 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git' // Update with your GitHub repo URL
             }
         }
 
