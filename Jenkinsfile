@@ -10,7 +10,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image based on your Dockerfile
+                    echo '=== Building Docker Image ==='
                     dockerImage = docker.build("resume-analyzer-image")
                 }
             }
@@ -19,9 +19,10 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Stop any existing containers with the same name (if any)
-                    bat 'docker rm -f resume-analyzer-container || true'
-                    // Run the container (For Windows)
+                    echo '=== Removing old container ==='
+                    bat 'docker rm -f resume-analyzer-container 2>nul'
+
+                    echo '=== Running container ==='
                     bat 'docker run -d -p 8501:8501 --name resume-analyzer-container resume-analyzer-image'
                 }
             }
@@ -30,7 +31,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    // Optionally, clean up unused Docker images (to save space)
+                    echo '=== Optional Cleanup of Image ==='
                     bat 'docker rmi resume-analyzer-image'
                 }
             }
