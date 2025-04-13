@@ -2,33 +2,38 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git'
+                git 'https://github.com/YourUsername/YourRepoName.git' // Update with your GitHub repo URL
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t smart-ai-resume-analyzer .'
+                    // Build the Docker image based on your Dockerfile
+                    dockerImage = docker.build("resume-analyzer-image")
                 }
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker stop resume-analyzer || true'
-                    sh 'docker rm resume-analyzer || true'
+                    // Stop any existing containers with the same name (if any)
+                    sh 'docker rm -f resume-analyzer-container || true'
+                    
+                    // Run the container
+                    sh 'docker run -d -p 8501:8501 --name resume-analyzer-container resume-analyzer-image'
                 }
             }
         }
 
-        stage('Run Container') {
+        stage('Cleanup') {
             steps {
                 script {
-                    sh 'docker run -d -p 5000:5000 --name resume-analyzer smart-ai-resume-analyzer'
+                    // Optionally, clean up unused Docker images (to save space)
+                    sh 'docker rmi resume-analyzer-image'
                 }
             }
         }
