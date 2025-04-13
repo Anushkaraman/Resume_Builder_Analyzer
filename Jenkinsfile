@@ -1,10 +1,9 @@
 pipeline {
     agent any
-
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git' // Update with your GitHub repo URL
+                git 'https://github.com/Anushkaraman/Resume_Builder_Analyzer.git' // Ensure correct GitHub repo URL
             }
         }
 
@@ -21,10 +20,9 @@ pipeline {
             steps {
                 script {
                     // Stop any existing containers with the same name (if any)
-                    sh 'docker rm -f resume-analyzer-container || true'
-                    
-                    // Run the container
-                    sh 'docker run -d -p 8501:8501 --name resume-analyzer-container resume-analyzer-image'
+                    bat 'docker rm -f resume-analyzer-container || true'
+                    // Run the container (For Windows)
+                    bat 'docker run -d -p 8501:8501 --name resume-analyzer-container resume-analyzer-image'
                 }
             }
         }
@@ -33,7 +31,7 @@ pipeline {
             steps {
                 script {
                     // Optionally, clean up unused Docker images (to save space)
-                    sh 'docker rmi resume-analyzer-image'
+                    bat 'docker rmi resume-analyzer-image'
                 }
             }
         }
