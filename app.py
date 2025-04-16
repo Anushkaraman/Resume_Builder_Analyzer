@@ -78,10 +78,6 @@ class ResumeApp:
             "🏠 HOME": self.render_home,
             "🔍 RESUME ANALYZER": self.render_analyzer,
             "📝 RESUME BUILDER": self.render_builder,
-            "📊 DASHBOARD": self.render_dashboard,
-            "🎯 JOB SEARCH": self.render_job_search,
-            "💬 FEEDBACK": self.render_feedback_page,
-            "ℹ️ ABOUT": self.render_about
         }
         
         # Initialize dashboard manager
@@ -1107,7 +1103,7 @@ class ResumeApp:
         
         # Display role information
         st.markdown(f"""
-        <div style='background-color: #1e1e1e; padding: 20px; border-radius: 10px; margin: 10px 0;'>
+        <div style='background-color: #ffffff; padding: 20px; border-radius: 10px; margin: 10px 0;'>
             <h3>{selected_role}</h3>
             <p>{role_info['description']}</p>
             <h4>Required Skills:</h4>
